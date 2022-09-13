@@ -15,3 +15,7 @@
 //     return view('welcome');
 // });
 Route::get('/', 'berandaController@beranda')->name('beranda');
+
+Route::get('arsip', 'arsipController@index')->name('arsip');
+
+Route::get('about', 'aboutController@index')->name('about');
