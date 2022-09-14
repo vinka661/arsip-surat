@@ -8,8 +8,11 @@
         <meta name="author" content="" />
         <title>Arsip Surat - Sertifikasi LSP</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="../css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Select2 -->
+        <link rel="stylesheet" href="{{ url('plugins/select2/css/select2.min.css') }}">
+        <link rel="stylesheet" href="{{ url('select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     </head>
     <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -61,64 +64,57 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Arsip Surat</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item">Berikut ini adalah surat-surat yang telah terbit dan diarsipkan.<br>
-                                                        Klik "Lihat" pada kolom aksi untuk menampilkan surat.
-                            </li>
-                        </ol>
-                        <div class="card mb-4">
-                            <!-- <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable Example
-                            </div> -->
-                            @if ($message = Session::get('success'))
-                                <div class="alert alert-success">
-                                    <p>{{ $message }}</p>
+                    <div class="content">
+                        <div class="container-fluid px-4">
+                            <h1 class="mt-4">Arsip Surat >> Unggah</h1>
+                            <ol class="breadcrumb mb-4">
+                                <li class="breadcrumb-item">Unggah surat yang telah terbit pada form ini untuk diarsipakn.<br>
+                                                            Catatan:<br>
+                                                            Gunakan file berformat PDF
+                                </li>
+                            </ol>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card card-primary card-outline">
+                                        <form role="form" action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label for="nomor_surat"><strong>Nomor Surat<strong></label><br>
+                                                    <input type="text" class="form-control @error('nomor_surat') is-invalid @enderror" name="nomor_surat" value="{{ old('nomor_surat') }}" required autocomplete="nomor_surat" autofocus  name="nomor_surat" id="nomor_surat" placeholder="Masukkan Nomor Surat">
+                                                    @error('nomor_surat')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="kategori"><strong>Kategori</strong></label>
+                                                    <select class="form-control select2bs4" name="kategori" id="kategori" style="width: 100%;" required><br>
+                                                        @foreach ($kategori as $item)
+                                                            <option value="{{ $item->id_kategori }}">{{ $item->nama_kategori }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="judul"><strong>Judul<strong></label><br>
+                                                    <input type="text" class="form-control"  name="judul" id="judul" placeholder="Masukkan Judul">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="file_surat">File Surat (PDF)</label>                 
+                                                    <input type="file" class="form-control" required="required" name="file_surat"> </br> 
+                                                </div>
+
+                                            </div>
+                                            <div class="card-footer">
+                                            <a href="{{route ('arsip')}}" class="btn btn-secondary"><i class="fas fa-angles-left"></i> Kembali</a>
+                                            <button type="submit" class="btn btn-primary mr-1">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            @endif
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama Surat</th>
-                                            <th>Kategori</th>
-                                            <th>Judul</th>
-                                            <th>Waktu Pengarsipan</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <!-- <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                        </tr>
-                                    </tfoot> -->
-                                    <tbody>
-                                        @foreach($arsip as $key => $data)
-                                        <tr>
-                                            <td>{{ $data->nomor_surat }}</td>
-                                            <td>{{ $data->kategori->nama_kategori }}</td>
-                                            <td>{{ $data->judul }}</td>
-                                            <td>{{ $data->created_at }}</td>
-                                            <td>
-                                                <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</a>
-                                                <a href="" class="btn btn-warning btn-sm"><i class="fas fa-download"></i> Unduh</a>
-                                                <a href="" class="btn btn-primary btn-sm">Lihat <i class="fas fa-angles-right"></i></a>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
                             </div>
-                            <div class="card-footer py-3">
-                                <a href="{{ route('create') }}" class="btn btn-success btn-sm"><i class="fas fa-box-archive"></i> Arsipkan Surat</a>
-                            </div>
-                        </div>
+                        </div>  
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
@@ -142,5 +138,18 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        <!-- Select2 -->
+        <script src="{{ url('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+        <script>
+            $(function () {
+                //Initialize Select2 Elements
+                $('.select2').select2()
+
+                //Initialize Select2 Elements
+                $('.select2bs4').select2({
+                theme: 'bootstrap4'
+                })
+            })
+        </script>
     </body>
 </html>

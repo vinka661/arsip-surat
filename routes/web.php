@@ -17,5 +17,7 @@
 Route::get('/', 'berandaController@beranda')->name('beranda');
 
 Route::get('arsip', 'arsipController@index')->name('arsip');
+Route::get('arsip/create', 'arsipController@create')->name('create');
+Route::post('arsip/store', 'arsipController@store')->name('store');
 
 Route::get('about', 'aboutController@index')->name('about');
