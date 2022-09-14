@@ -102,7 +102,12 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="file_surat">File Surat (PDF)</label>                 
-                                                    <input type="file" class="form-control" required="required" name="file_surat"> </br> 
+                                                    <input type="file" class="form-control" required="required" name="file_surat" value="{{ old('file_surat') }}"> </br> 
+                                                    @error('file_surat')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
 
                                             </div>
