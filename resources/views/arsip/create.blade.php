@@ -112,8 +112,8 @@
 
                                             </div>
                                             <div class="card-footer">
-                                            <a href="{{route ('arsip')}}" class="btn btn-secondary"><i class="fas fa-angles-left"></i> Kembali</a>
-                                            <button type="submit" class="btn btn-primary mr-1">Simpan</button>
+                                                <a href="{{route ('arsip')}}" class="btn btn-secondary"><i class="fas fa-angles-left"></i> Kembali</a>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
                                             </div>
                                         </form>
                                     </div>

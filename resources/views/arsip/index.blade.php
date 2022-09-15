@@ -108,7 +108,7 @@
                                             <td>
                                                 <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</a>
                                                 <a href="public/files/{{$data->file_surat}}" class="btn btn-warning btn-sm"><i class="fas fa-download"></i> Unduh</a>
-                                                <a href="" class="btn btn-primary btn-sm">Lihat <i class="fas fa-angles-right"></i></a>
+                                                <a href="{{ route('show', $data->id_arsip) }}" class="btn btn-primary btn-sm">Lihat <i class="fas fa-angles-right"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach

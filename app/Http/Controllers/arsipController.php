@@ -57,9 +57,44 @@ class arsipController extends Controller
         return redirect()->route('arsip')->with('success','Data berhasil disimpan');
     }
 
-    // public function show($id)
-    // {
-    //     $dl = Arsip::find($id);
-    //     return response()->download(storage_path("app/public/{$dl->file_surat $dl->judul}"));
-    // }
+    public function show($id_arsip)
+    {
+        $arsip = Arsip::find($id_arsip);
+        $kategori = Kategori::all();
+        return view('arsip.show', ['arsip' => $arsip, 'kategori' => $kategori]);
+    }
+
+    public function edit($id_arsip)
+    {
+        $arsip = Arsip::find($id_arsip);
+        $kategori = Kategori::all();
+        return view('arsip.edit', ['arsip' => $arsip, 'kategori' => $kategori]);
+    }
+
+    public function update(Request $request, $id_arsip)
+    {
+        $arsip = Arsip::find($id_arsip);
+        $this->validate($request, [
+            'file_surat' => 'required|file|mimes:pdf',
+        ]);
+        // $upload->id_rcfa = $request->id_rcfa;
+        // $upload->keterangan_kajian = $request->keterangan_kajian;
+        if($arsip->file_surat && file_exists(storage_path('/public/files/' . $arsip->file_surat)))
+        {
+            \Storage::delete('/public/files/'.$arsip->file_surat);
+        }
+        if($request->hasfile('file_surat'))
+         {
+            $file = $request->file('file_surat');
+            $name = $file->getClientOriginalName();
+          
+            $folder = '/public/files/';
+            $path = $folder.$name;
+            $file->move('public/files',$name);
+            $arsip->file_surat = $path;
+         }
+        $arsip->file_surat = $name;
+        $arsip->save();
+        return redirect()->route('show', ['id_arsip' => $request->id_arsip])->with('success','File berhasil diupdate');
+    }
 }
