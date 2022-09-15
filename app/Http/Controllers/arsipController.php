@@ -97,4 +97,11 @@ class arsipController extends Controller
         $arsip->save();
         return redirect()->route('show', ['id_arsip' => $request->id_arsip])->with('success','File berhasil diupdate');
     }
+
+    public function delete($id_arsip)
+    {
+        $arsip = Arsip::find($id_arsip);
+        $arsip->delete();
+        return redirect('arsip')->with('success','Data berhasil dihapus');
+    }
 }

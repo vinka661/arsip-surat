@@ -143,6 +143,8 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- Select2 -->
         <script src="{{ url('assets/plugins/select2/js/select2.full.min.js') }}"></script>
         <script>

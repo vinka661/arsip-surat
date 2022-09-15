@@ -106,7 +106,7 @@
                                             <td>{{ $data->judul }}</td>
                                             <td>{{ $data->created_at }}</td>
                                             <td>
-                                                <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</a>
+                                                <button onclick="handleDelete({{ $data->id_arsip }})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button>
                                                 <a href="public/files/{{$data->file_surat}}" class="btn btn-warning btn-sm"><i class="fas fa-download"></i> Unduh</a>
                                                 <a href="{{ route('show', $data->id_arsip) }}" class="btn btn-primary btn-sm">Lihat <i class="fas fa-angles-right"></i></a>
                                             </td>
@@ -114,6 +114,23 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Alert</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus arsip surat ini?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <a id="deleteLink" class="btn btn-danger">Ya!</a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer py-3">
                                 <a href="{{ route('create') }}" class="btn btn-success btn-sm"><i class="fas fa-box-archive"></i> Arsipkan Surat</a>
@@ -135,6 +152,8 @@
                 </footer>
             </div>
         </div>
+
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -142,5 +161,18 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        
+        <script>
+            function handleDelete(id_arsip)
+            {
+                var link = document.getElementById('deleteLink')
+                
+                link.href = "{{ route('delete', $data->id_arsip) }}"
+
+                $('#deleteModal').modal('show')
+            }
+        </script>
     </body>
 </html>
