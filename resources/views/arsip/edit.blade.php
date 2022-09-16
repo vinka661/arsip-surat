@@ -42,7 +42,6 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="{{route ('arsip')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-star"></i></div>
                                 Arsip
@@ -75,9 +74,14 @@
                                         <form role="form" action="{{ route('update', $arsip->id_arsip) }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="card-body">
-                                                <div class="form-group"> 
-                                                    <label for="file_surat"><strong>File Surat</strong></label>                 
-                                                    <input type="file" class="form-control"  name="file_surat" value="{{ $arsip->file_surat }}" required="required"></br> 
+                                                <div class="form-group">
+                                                    <label for="file_surat"><strong>File Surat (PDF)</strong></label>                 
+                                                    <input type="file" class="form-control @error('file_surat') is-invalid @enderror" name="file_surat" value="{{ old('file_surat') }}" required autocomplete="file_surat" autofocus  name="file_surat" id="file_surat">
+                                                    @error('file_surat')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         <div class="card-footer">

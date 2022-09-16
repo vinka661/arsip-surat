@@ -33,7 +33,7 @@ class arsipController extends Controller
     {
         $file_surat = new Arsip();
         $this->validate($request, [
-           'nomor_surat' => ['required', Rule::unique('arsips')],
+            'nomor_surat' => ['required', Rule::unique('arsips')],
             'file_surat' => ['required', 'file', 'mimes:pdf'],
         ]);
         if($request->hasfile('file_surat'))
@@ -77,7 +77,7 @@ class arsipController extends Controller
     {
         $arsip = Arsip::find($id_arsip);
         $this->validate($request, [
-            'file_surat' => 'required|file|mimes:pdf',
+            'file_surat' => ['required', 'file', 'mimes:pdf'],
         ]);
         // $upload->id_rcfa = $request->id_rcfa;
         // $upload->keterangan_kajian = $request->keterangan_kajian;
