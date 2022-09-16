@@ -14,7 +14,7 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', 'berandaController@beranda')->name('beranda');
+// Route::get('/', 'berandaController@beranda')->name('beranda');
 
 Route::get('arsip', 'arsipController@index')->name('arsip');
 //arsipkan surat

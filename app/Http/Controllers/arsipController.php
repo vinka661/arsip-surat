@@ -6,6 +6,7 @@ use App\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class arsipController extends Controller
 {
@@ -31,8 +32,9 @@ class arsipController extends Controller
     public function store(Request $request)
     {
         $file_surat = new Arsip();
-       $this->validate($request, [
-            'file_surat' => 'required|file|mimes:pdf',
+        $this->validate($request, [
+           'nomor_surat' => ['required', Rule::unique('arsips')],
+            'file_surat' => ['required', 'file', 'mimes:pdf'],
         ]);
         if($request->hasfile('file_surat'))
          {
